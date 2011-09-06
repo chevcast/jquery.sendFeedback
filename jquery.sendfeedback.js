@@ -45,7 +45,7 @@
             width: '100%',
             left: '0',
             top: '35%',
-            zIndex: settings.overlayZIndex - 1,
+            zIndex: settings.overlayZIndex + 1,
             textAlign: 'center',
             fontSize: settings.instructionTextSize,
             fontWeight: 'bold',
