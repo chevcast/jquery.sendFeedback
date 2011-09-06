@@ -4,8 +4,9 @@
     {
         var settings = $.extend({
             instructionText: 'Use Your Mouse to Highlight any Problems.',
-            instructionColor: '#f00',
-            instructionSize: '40px',
+            instructionTextColor: '#f00',
+            instructionBackgroundColor: '#fff',
+            instructionTextSize: '40px',
             overlayColor: '#ff0',
             overlayOpacity: '.15',
             overlayZIndex: '9000000',
@@ -44,10 +45,12 @@
             top: '35%',
             zIndex: settings.overlayZIndex - 1,
             textAlign: 'center',
-            fontSize: settings.instructionSize,
+            fontSize: settings.instructionTextSize,
             fontWeight: 'bold',
-            color: settings.instructionColor,
-            fontFamily: 'Arial'
+            color: settings.instructionTextColor,
+            fontFamily: 'Arial',
+            backgroundColor: settings.instructionBackgroundColor,
+            padding: '10px'
         })
         .text(settings.instructionText)
         .appendTo($feedbackContainer)
