@@ -115,7 +115,7 @@
                 top: e.pageY,
                 zIndex: settings.overlayZIndex - 1
             })
-            .appendTo('body');
+            .appendTo($feedbackContainer);
             originalCoords = { top: e.pageY, left: e.pageX };
         });
 
