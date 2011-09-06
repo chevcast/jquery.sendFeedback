@@ -24,6 +24,8 @@
 
         var $feedbackContainer = $('<div></div>').appendTo('body');
 
+        var $feedbackHighlights = $('<div></div>').appendTo('body');
+
         var $feedbackOverlay = $('<div></div>')
         .css({
             position: 'absolute',
@@ -78,21 +80,30 @@
         })
         .text('Send Feedback')
         .appendTo($feedbackForm);
-        $('<textarea></textarea>').css({
+        $('<p>Your feedback is very useful to us when resolving problems. Please be very detailed in your description.</p>')
+        .appendTo($feedbackForm);
+        var $feedbackDetails = $('<textarea></textarea>').css({
             width: '290px',
-            height: '200px',
+            height: '150px',
             marginBottom: '10px'
         })
-        .val('Please describe the problem in detail.')
         .appendTo($feedbackForm);
         $('<input type="button" value="Send" />').click(function (e)
         {
-            alert('function not yet complete');
+            $feedbackContainer.remove();
+            var feedbackInformation = {
+                details: $feedbackDetails.val(),
+                html: '<html>' + $('html').html() + '</html>'
+            };
+            $feedbackHighlights.remove();
+            if (settings.feedbackSent)
+                settings.feedbackSent();
         })
         .appendTo($feedbackForm);
         $('<input type="button" value="Cancel" />').click(function (e)
         {
             $feedbackContainer.remove();
+            $feedbackHighlights.remove();
         })
         .appendTo($feedbackForm);
         $feedbackForm.appendTo($feedbackContainer);
@@ -115,7 +126,7 @@
                 top: e.pageY,
                 zIndex: settings.overlayZIndex - 1
             })
-            .appendTo($feedbackContainer);
+            .appendTo($feedbackHighlights);
             originalCoords = { top: e.pageY, left: e.pageX };
         });
 
