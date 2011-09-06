@@ -81,7 +81,10 @@
         .text('Send Feedback')
         .appendTo($feedbackForm);
         $('<p>Your feedback is very useful to us when resolving problems. Please be very detailed in your description.</p>')
-        .css({ fontSize: '13px' })
+        .css({
+            fontSize: '13px',
+            margin-bottom: '10px'
+        })
         .appendTo($feedbackForm);
         var $feedbackDetails = $('<textarea></textarea>').css({
             width: '290px',
