@@ -13,9 +13,15 @@
             highlightBorderWidth: '3px',
             highlightBorderStyle: 'solid',
             highlightBorderRadius: '5px',
+            formTextColor: '#000',
+            formBackgroundColor: '#fff',
+            formBorderColor: '#000',
+            formBorderWidth: '1px',
+            formBorderStyle: 'solid',
             url: ''
         }, options);
 
+        var $feedbackContainer = $('<div></div>').appendTo('body');
 
         var $feedbackOverlay = $('<div></div>')
         .css({
@@ -29,7 +35,7 @@
             zIndex: settings.overlayZIndex,
             textAlign: 'center'
         })
-        .appendTo('body');
+        .appendTo($feedbackContainer);
 
         var $feedbackInstructions = $('<div></div>').css({
             position: 'absolute',
@@ -44,12 +50,49 @@
             fontFamily: 'Arial'
         })
         .text(settings.instructionText)
-        .appendTo('body')
+        .appendTo($feedbackContainer)
         .hide();
 
         var $feedbackForm = $('<div></div>').css({
-
+            position: 'fixed',
+            bottom: '0',
+            right: '0',
+            width: '300px',
+            height: '300px',
+            padding: '10px',
+            color: settings.formTextColor,
+            backgroundColor: settings.formBackgroundColor,
+            borderStyle: settings.formBorderStyle,
+            borderWidth: settings.formBorderWidth,
+            borderColor: settings.formBorderColor,
+            borderRadius: '10px 0 0 0',
+            zIndex: settings.overlayZIndex + 1
         });
+        $('<div></div>').css({
+            fontSize: '20px',
+            textAlign: 'center',
+            marginBottom: '10px'
+        })
+        .text('Send Feedback')
+        .appendTo($feedbackForm);
+        $('<textarea></textarea>').css({
+            width: '290px',
+            height: '200px',
+            marginBottom: '10px'
+        })
+        .val('Please describe the problem in detail.')
+        .appendTo($feedbackForm);
+        $('<input type="button" value="Send" />').click(function (e)
+        {
+            alert('function not yet complete');
+        })
+        .appendTo($feedbackForm);
+        $('<input type="button" value="Cancel" />').click(function (e)
+        {
+            $feedbackContainer.remove();
+        })
+        .appendTo($feedbackForm);
+        $feedbackForm.appendTo($feedbackContainer);
 
         var originalCoords = { top: 0, left: 0 };
 
@@ -92,12 +135,12 @@
             $currentHighlight = null;
         });
 
-        $feedbackInstructions.fadeIn(1000, function ()
+        $feedbackInstructions.fadeIn(3000, function ()
         {
             setTimeout(function ()
             {
                 $feedbackInstructions.fadeOut(1000);
-            }, 3000);
+            }, 2000);
         });
 
         $feedbackOverlay.height($(document).height());
