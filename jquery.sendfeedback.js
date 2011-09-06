@@ -3,7 +3,7 @@
     $.sendFeedback = function (options)
     {
         var settings = $.extend({
-            instructionText: 'Use Your Mouse to Highlight any Problems.',
+            instructionText: 'Use Your Mouse to Highlight Areas on the Page',
             instructionTextColor: '#f00',
             instructionBackgroundColor: '#fff',
             instructionTextSize: '40px',
@@ -14,6 +14,8 @@
             highlightBorderWidth: '3px',
             highlightBorderStyle: 'solid',
             highlightBorderRadius: '5px',
+            formTitle: 'Send Feedback',
+            formText: 'Your feedback is very useful to us when resolving problems. Please be very detailed in your description.',
             formTextColor: '#000',
             formBackgroundColor: '#fff',
             formBorderColor: '#000',
@@ -78,13 +80,14 @@
             textAlign: 'center',
             marginBottom: '10px'
         })
-        .text('Send Feedback')
+        .text(settings.formTitle)
         .appendTo($feedbackForm);
-        $('<p>Your feedback is very useful to us when resolving problems. Please be very detailed in your description.</p>')
+        $('<p></p>')
         .css({
             fontSize: '13px',
             marginBottom: '10px'
         })
+        .text(settings.formText)
         .appendTo($feedbackForm);
         var $feedbackDetails = $('<textarea></textarea>').css({
             width: '290px',
