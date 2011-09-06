@@ -149,7 +149,7 @@
             $currentHighlight = null;
         });
 
-        $feedbackInstructions.fadeIn(1000, function ()
+        $feedbackInstructions.fadeIn(500, function ()
         {
             setTimeout(function ()
             {
