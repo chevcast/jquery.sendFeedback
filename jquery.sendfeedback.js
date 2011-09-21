@@ -1,4 +1,21 @@
-﻿(function ($)
+﻿//    Licensed to the Apache Software Foundation (ASF) under one
+//    or more contributor license agreements.  See the NOTICE file
+//    distributed with this work for additional information
+//    regarding copyright ownership.  The ASF licenses this file
+//    to you under the Apache License, Version 2.0 (the
+//    "License"); you may not use this file except in compliance
+//    with the License.  You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing,
+//    software distributed under the License is distributed on an
+//    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+//    KIND, either express or implied.  See the License for the
+//    specific language governing permissions and limitations
+//    under the License.
+
+(function ($)
 {
     $.sendFeedback = function (options)
     {
@@ -21,7 +38,8 @@
             formBorderColor: '#000',
             formBorderWidth: '1px',
             formBorderStyle: 'solid',
-            url: ''
+            subjectText: 'Subject',
+            detailsText: 'Details'
         }, options);
 
         var $feedbackContainer = $('<div></div>').appendTo('body');
@@ -47,7 +65,7 @@
             width: '100%',
             left: '0',
             top: '35%',
-            zIndex: settings.overlayZIndex + 1,
+            zIndex: settings.overlayZIndex - 1,
             textAlign: 'center',
             fontSize: settings.instructionTextSize,
             fontWeight: 'bold',
@@ -64,8 +82,8 @@
             position: 'fixed',
             bottom: '0',
             right: '0',
-            width: '300px',
-            height: '300px',
+            width: '275px',
+            height: '335px',
             padding: '10px',
             color: settings.formTextColor,
             backgroundColor: settings.formBackgroundColor,
@@ -82,29 +100,50 @@
         })
         .text(settings.formTitle)
         .appendTo($feedbackForm);
-        $('<p></p>')
+        $('<div></div>')
         .css({
-            fontSize: '13px',
+            fontSize: '11px',
             marginBottom: '10px'
         })
         .text(settings.formText)
         .appendTo($feedbackForm);
+        $('<div></div>')
+        .css({
+            fontSize: '11px'
+        })
+        .text(settings.subjectText)
+        .appendTo($feedbackForm);
+        var $feedbackSubject = $('<input type="text" />').css({
+            width: '270px',
+            marginBottom: '10px',
+            display: 'block'
+        })
+        .appendTo($feedbackForm);
+        $('<div></div>')
+        .css({
+            fontSize: '11px'
+        })
+        .text(settings.detailsText)
+        .appendTo($feedbackForm);
         var $feedbackDetails = $('<textarea></textarea>').css({
-            width: '290px',
+            width: '270px',
             height: '150px',
-            marginBottom: '10px'
+            marginBottom: '10px',
+            display: 'block'
         })
         .appendTo($feedbackForm);
         $('<input type="button" value="Send" />').click(function (e)
         {
+            $('body').width($('body').width());
             $feedbackContainer.remove();
             var feedbackInformation = {
+                subject: $feedbackSubject.val(),
                 details: $feedbackDetails.val(),
                 html: '<html>' + $('html').html() + '</html>'
             };
             $feedbackHighlights.remove();
             if (settings.feedbackSent)
-                settings.feedbackSent();
+                settings.feedbackSent(feedbackInformation);
         })
         .appendTo($feedbackForm);
         $('<input type="button" value="Cancel" />').click(function (e)
