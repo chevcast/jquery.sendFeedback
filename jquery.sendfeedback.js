@@ -149,6 +149,8 @@
             });
             $feedbackHighlights.remove();
             var feedbackInformation = {
+                url: document.URL,
+                userAgent: navigator.userAgent,
                 subject: $feedbackSubject.val(),
                 details: $feedbackDetails.val(),
                 html: html
