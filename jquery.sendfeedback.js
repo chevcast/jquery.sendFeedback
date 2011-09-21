@@ -15,10 +15,8 @@
 //    specific language governing permissions and limitations
 //    under the License.
 
-(function ($)
-{
-    $.sendFeedback = function (options)
-    {
+(function ($) {
+    $.sendFeedback = function (options) {
         var settings = $.extend({
             instructionText: 'Use Your Mouse to Highlight Areas on the Page',
             instructionTextColor: '#f00',
@@ -58,7 +56,7 @@
             zIndex: settings.overlayZIndex,
             textAlign: 'center'
         })
-        .appendTo($feedbackContainer);
+        .appendTo($feedbackHighlights);
 
         var $feedbackInstructions = $('<div></div>').css({
             position: 'absolute',
@@ -132,22 +130,34 @@
             display: 'block'
         })
         .appendTo($feedbackForm);
-        $('<input type="button" value="Send" />').click(function (e)
-        {
-            $('body').width($('body').width());
+        $('<input type="button" value="Send" />').click(function (e) {
             $feedbackContainer.remove();
+            $('*').each(function () {
+                if ($(this).attr('style'))
+                    $(this).data('oldStyle', $(this).attr('style'));
+                else
+                    $(this).data('oldStyle', 'none');
+                $(this).width($(this).width());
+                $(this).height($(this).height());
+            });
+            var html = '<html>' + $('html').html() + '</html>';
+            $('*').each(function () {
+                if ($(this).data('oldStyle') != 'none')
+                    $(this).attr('style', $(this).data('oldStyle'));
+                else
+                    $(this).removeAttr('style');
+            });
+            $feedbackHighlights.remove();
             var feedbackInformation = {
                 subject: $feedbackSubject.val(),
                 details: $feedbackDetails.val(),
-                html: '<html>' + $('html').html() + '</html>'
+                html: html
             };
-            $feedbackHighlights.remove();
             if (settings.feedbackSent)
                 settings.feedbackSent(feedbackInformation);
         })
         .appendTo($feedbackForm);
-        $('<input type="button" value="Cancel" />').click(function (e)
-        {
+        $('<input type="button" value="Cancel" />').click(function (e) {
             $feedbackContainer.remove();
             $feedbackHighlights.remove();
         })
@@ -158,8 +168,7 @@
 
         var $currentHighlight;
 
-        $feedbackOverlay.bind('mousedown', function (e)
-        {
+        $feedbackOverlay.bind('mousedown', function (e) {
             $currentHighlight = $('<div></div>').css({
                 width: '1px',
                 height: '1px',
@@ -176,10 +185,8 @@
             originalCoords = { top: e.pageY, left: e.pageX };
         });
 
-        $feedbackOverlay.bind('mousemove', function (e)
-        {
-            if ($currentHighlight)
-            {
+        $feedbackOverlay.bind('mousemove', function (e) {
+            if ($currentHighlight) {
                 var newCoords = { top: e.pageY, left: e.pageX };
 
                 if (newCoords.top < originalCoords.top) $currentHighlight.css('top', newCoords.top);
@@ -190,15 +197,12 @@
             }
         });
 
-        $feedbackOverlay.bind('mouseup', function (e)
-        {
+        $feedbackOverlay.bind('mouseup', function (e) {
             $currentHighlight = null;
         });
 
-        $feedbackInstructions.fadeIn(500, function ()
-        {
-            setTimeout(function ()
-            {
+        $feedbackInstructions.fadeIn(500, function () {
+            setTimeout(function () {
                 $feedbackInstructions.fadeOut(1000);
             }, 2000);
         });
