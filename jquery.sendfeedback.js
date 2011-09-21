@@ -171,6 +171,7 @@
         var $currentHighlight;
 
         $feedbackOverlay.bind('mousedown', function (e) {
+            $feedbackForm.fadeOut();
             $currentHighlight = $('<div></div>').css({
                 width: '1px',
                 height: '1px',
@@ -200,6 +201,7 @@
         });
 
         $feedbackOverlay.bind('mouseup', function (e) {
+            $feedbackForm.fadeIn();
             $currentHighlight = null;
         });
 
