@@ -1,0 +1,89 @@
+<html>
+    <head>
+        <title>jQuery.sendFeedback Example</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+        <script src="colorbox/jquery.colorbox.js" type="text/javascript"></script>
+        <script src="../jquery.sendfeedback.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(function()
+            {
+                var options = {
+                    instructionText: 'Use Your Mouse to Highlight Areas on the Page',
+                    instructionTextColor: '#090',
+                    instructionBackgroundColor: '#fff',
+                    instructionTextSize: '40px',
+                    overlayColor: '#000',
+                    overlayOpacity: '.25',
+                    overlayZIndex: '9000000',
+                    highlightBorderColor: '#090',
+                    highlightBorderWidth: '3px',
+                    highlightBorderStyle: 'solid',
+                    highlightBorderRadius: '5px',
+                    formTitle: 'Send Feedback',
+                    formText: 'Your feedback is very useful to us when resolving problems. Please be very detailed in your description.',
+                    formTextColor: '#000',
+                    formBackgroundColor: '#fff',
+                    formBorderColor: '#000',
+                    formBorderWidth: '1px',
+                    formBorderStyle: 'solid',
+                    subjectText: 'Subject',
+                    detailsText: 'Details',
+                    feedbackSent: function ()
+                    {
+                        $.colorbox({
+                            inline: true,
+                            href: '#feedbackSent'
+                        });
+                    } 
+                };
+                
+                $('#sendFeedback').click(function (e)
+                {
+                    $.sendFeedback(options);         
+                });
+            });
+        </script>
+        <link rel="stylesheet" href="colorbox/colorbox.css" />
+        <link rel="stylesheet" href="example.css" />
+    </head>
+    <body>
+        <div id="frame">
+            <div id="banner">
+                <br />
+                jQuery.sendFeedback Demo
+            </div>
+            <div id="navigation">
+            </div>
+            <div id="mainContent">
+                This is a demo of the jQuery.sendFeedback plugin.
+                <br />
+                <br />
+                The plugin is still largely a work in progress but it is moving quickly. If you would like to follow or contribute to the project then be sure to visit the project page on Google Project Hosting. <a target="_blank" href="http://code.google.com/p/sendfeedback/">http://code.google.com/p/sendfeedback/</a>
+                <br />
+                <br />
+                To begin the demonstration simply click the "Send Feedback" button in the lower right corner.
+                <br />
+                <br />
+                This demo also uses a jQuery plugin called "colorbox". It displays a "thank you" colorbox after feedback has been sent by handling the "feedbackSent" callback function when making the call to the plugin. Colorbox is <i><b>not</b></i> a requirement for jQuery.sendFeedback, it is only used as an example of something you could do in a callback for the purposes of this demonstration.
+            </div>
+            <div id="footer">
+                by Alex Ford at <a target="_blank" href="http://www.CodeTunnel.com">CodeTunnel.com</a>.
+            </div>
+        </div>
+        <div style="display: none;">
+            <div id="feedbackSent">
+                <div style="font-size: 25px;">
+                    Thank you for submitting your feedback!
+                </div>
+                <br />
+                Your feedback is very important to us.
+                <br />
+                <br />
+                Someone should respond to you within 24 hours of receipt of your feedback.
+                <br />
+                If this is an urgent matter please call the support hotline at xxx-xxx-xxxx.
+            </div>
+        </div>
+        <input id="sendFeedback" type="button" value="Send Feedback" />
+    </body>
+</html>
