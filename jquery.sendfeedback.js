@@ -155,8 +155,8 @@
                 details: $feedbackDetails.val(),
                 html: html
             };
-            if (settings.feedbackSent)
-                settings.feedbackSent(feedbackInformation);
+            if (settings.feedbackSend)
+                settings.feedbackSend(feedbackInformation);
         })
         .appendTo($feedbackForm);
         $('<input type="button" value="Cancel" />').click(function (e) {
